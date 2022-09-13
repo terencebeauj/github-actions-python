@@ -1,0 +1,6 @@
+[MASTER]
+init-hook='import sys; sys.path.append(".")'
+disable=
+    wildcard-import,
+    unused-wildcard-import,
+    invalid-name
