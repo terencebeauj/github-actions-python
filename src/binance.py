@@ -90,7 +90,7 @@ class Binance:
             limit (int, optional): How many candles to retrieve, max 1000. Defaults to 1000.
 
         Returns:
-            _type_: None
+            pd.DataFrame: DataFrame created for the symbol
         """
         candles = self.get_candles(symbol, interval, limit)
         df = pd.DataFrame(candles)
