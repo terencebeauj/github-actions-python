@@ -17,17 +17,18 @@ I'm going to improve it in the future, it was a quick project for me to setup a 
 
 ## Launching the app
 I have created the app using FastAPI. To run the server, launch the command:
+
         uvicorn src.main:app --reload
 
-Then, you will be able to access the API on your machine at this location "localhost:8000"
+Then, you will be able to access the API on your machine at this location `localhost:8000`
 
 ## Tests
 I'm using the pytest libray for testing, to run the tests launch the command:
+
         pytest -s -v
 
 ## CI
-I'm using Github Actions for the CI workflow, you can access the details at this location ".github/workflows"
-
+I'm using Github Actions for the CI workflow, you can access the details at this location `.github/workflows`
 
 
 
