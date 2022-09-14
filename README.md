@@ -20,7 +20,9 @@ I have created the app using FastAPI. To run the server, launch the command:
 
         uvicorn src.main:app --reload
 
-Then, you will be able to access the API on your machine at this location `localhost:8000`
+Then, you will be able to access the API on your machine at this location `localhost:8000`.
+
+If you want to see what endpoints are available, access the generated doc at this location `localhost:8000/docs`
 
 ## Tests
 I'm using the pytest libray for testing, to run the tests launch the command:
