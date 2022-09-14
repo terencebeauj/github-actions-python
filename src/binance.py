@@ -125,5 +125,5 @@ class Binance:
         rf_reg = RandomForestRegressor(n_estimators=2000, max_depth=7, min_samples_leaf=5)
         rf_reg.fit(X_train, y_train)
         y_pred = rf_reg.predict(X_test)[0]
-        price = db["close"].iloc[-2] * (1 + y_pred)
+        price = db["close"].iloc[-1] * (1 + y_pred)
         return price
