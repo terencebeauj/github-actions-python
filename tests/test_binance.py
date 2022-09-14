@@ -28,7 +28,11 @@ def test_convert_candles_to_df():
     """
     candles = binance.get_candles(symbol="btcusdt")
     df = binance.candles_to_df(candles=candles, symbol="btcusdt")
-    print(df.head())
-    print(df.shape)
     assert isinstance(df, pd.DataFrame)
     assert df.isna().sum().sum() == 0
+
+def test_modelling():
+    """Test the naive model
+    """
+    price = binance.naive_modelling("btcbusd")
+    assert isinstance(price, float)

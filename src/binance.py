@@ -4,6 +4,7 @@ import typing
 
 import requests
 import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
 
 
 class Binance:
@@ -98,3 +99,31 @@ class Binance:
         df["datetime"] = pd.to_datetime(df.index, unit="ms")
         self.candles[symbol] = df
         return df
+
+    def naive_modelling(self, symbol: str):
+        """Very naive and non accurate model to predict the price at the actual candle
+
+        Args:
+            symbol (str): symbol that we want to predict the price
+
+        Returns:
+            float: price predicted
+        """
+        if symbol not in self.candles.keys():
+            candles = self.get_candles(symbol)
+            db = self.candles_to_df(candles, symbol)
+        else:
+            db = self.candles[symbol]
+        db.set_index("datetime", drop=True, inplace=True)
+        df = db.pct_change(1)
+        df["target"] = df["close"].shift(-1)
+        df.dropna(inplace=True)
+        X_train = df.iloc[:-1,:].drop("target", axis=1)
+        y_train = df["target"].iloc[:-1]
+        X_test = df.iloc[-1:, :].drop("target", axis=1)
+
+        rf_reg = RandomForestRegressor(n_estimators=2000, max_depth=7, min_samples_leaf=5)
+        rf_reg.fit(X_train, y_train)
+        y_pred = rf_reg.predict(X_test)[0]
+        price = db["close"].iloc[-2] * (1 + y_pred)
+        return price
