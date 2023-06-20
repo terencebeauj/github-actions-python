@@ -66,7 +66,6 @@ class Binance:
                     "high": [],
                     "low": [],
                     "close": [],
-                    "volume": [],
                 }
                 for candle in data:
                     candles["time"].append(candle[0])
@@ -74,7 +73,6 @@ class Binance:
                     candles["high"].append(float(candle[2]))
                     candles["low"].append(float(candle[3]))
                     candles["close"].append(float(candle[4]))
-                    candles["volume"].append(float(candle[5]))
                 return candles
             response.raise_for_status()
         raise Exception(f"{symbol} not in binance pairs")
