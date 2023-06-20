@@ -112,16 +112,19 @@ class Binance:
             db = self.candles_to_df(candles, symbol)
         else:
             db = self.candles[symbol]
+            db = self.candles_to_df(db, symbol)
         db.set_index("datetime", drop=True, inplace=True)
         df = db.pct_change(1)
         df["target"] = df["close"].shift(-1)
         df.dropna(inplace=True)
-        X_train = df.iloc[:-1,:].drop("target", axis=1)
+        X_train = df.iloc[:-1, :].drop("target", axis=1)
         y_train = df["target"].iloc[:-1]
         X_test = df.iloc[-1:, :].drop("target", axis=1)
 
-        rf_reg = RandomForestRegressor(n_estimators=2000, max_depth=7, min_samples_leaf=5)
+        rf_reg = RandomForestRegressor(
+            n_estimators=2000, max_depth=7, min_samples_leaf=5, random_state=7
+        )
         rf_reg.fit(X_train, y_train)
         y_pred = rf_reg.predict(X_test)[0]
-        price = db["close"].iloc[-2] * (1 + y_pred)
+        price = db["close"].iloc[-1] * (1 + y_pred)
         return price
