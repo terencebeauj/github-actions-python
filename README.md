@@ -7,9 +7,10 @@ I'm going to improve it in the future, it was a quick project for me to setup a 
 
 1. Clone the project
 
-2. Create a virtual environnement
+2. Create an launch a virtual environnement:
 
-        python -m venv venv
+        python3 -m venv .venv
+        source .venv/bin/activate
 
 3. Install dependancies:
 
